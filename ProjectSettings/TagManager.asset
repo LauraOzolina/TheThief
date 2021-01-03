@@ -13,6 +13,9 @@ TagManager:
   - arrowhit
   - done
   - enemydead
+  - enemyfinished
+  - ground
+  - money
   layers:
   - Default
   - TransparentFX

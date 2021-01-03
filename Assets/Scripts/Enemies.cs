@@ -10,14 +10,18 @@ public class Enemies : MonoBehaviour
     public int maxRange;
     public int minRange;
     public Animator anim;
-
-
+    GameObject go,engo;
+    public int ecount, xpos, zpos;
     // Start is called before the first frame update
     void Start()
     {
+        ecount = 0;
         anim = GetComponent<Animator>();
         anim.SetBool("isRuning", false);
         Debug.Log("setojam false");
+        engo = GameObject.FindWithTag("enemy");
+    
+      
 
     }
 
@@ -31,32 +35,32 @@ public class Enemies : MonoBehaviour
         {
             if (dist < 10)
             {
-           
+
                 //target = other.transform;
 
-                anim.SetBool("isRuning", true);
+                //anim.SetBool("isRuning", true);
+                anim.Play("Treadmill Running");
                 enemy.SetDestination(player.position);
-
+              
+          
             }
             else
             {
                 target = null;
 
-                anim.SetBool("isRuning", false);
+                // anim.SetBool("isRuning", false);
+                anim.Play("Breathing Idle");
+          
+              
+                enemy.velocity = Vector3.zero;
+
                 return;
             }
         }
 
-        /* if (target == null) return;
-           transform.LookAt(target);
-           float distance = Vector3.Distance(transform.position, target.position);
-           bool tooClose = distance < minRange;
-           Vector3 direction = tooClose ? Vector3.back : Vector3.forward;
-           transform.Translate(direction * Time.deltaTime *5);*/
 
 
     }
-
 
 
 

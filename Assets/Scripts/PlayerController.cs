@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool shootArrow = false;
     Vector2 currentMouseDelta = Vector2.zero;
     Vector2 currentMouseDeltaVelocity = Vector2.zero;
-
+    public int money;
     void Start()
     {
 
@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
         }
         showWeapon1 = false;
         showWeapon2 = false;
+        money = 0;
     }
 
     void Update()
@@ -147,6 +148,17 @@ public class PlayerController : MonoBehaviour
         powerBar.value += 0.5f;
 
         // do stuff
+    }
+    void OnTriggerEnter(Collider col)
+    {
+      
+
+        if (col.tag == "money")
+        {
+            Destroy(col.gameObject);
+            Debug.Log("kolizija ar maisu");
+            money += 100;
+        }
     }
 
 }

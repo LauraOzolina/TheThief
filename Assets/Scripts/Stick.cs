@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class Stick : MonoBehaviour
 {
-    GameObject arrow, arrowhit, ar, ed;
+    GameObject arrow, arrowhit, ar, ed,go;
+    public GameObject mon;
     Rigidbody rb, rbhit;
     Camera cam;
     float hitLocy;
@@ -14,15 +15,17 @@ public class Stick : MonoBehaviour
     Animator enemyAnim;
     public bool arrowStop;
     public bool isEnemyShot;
+    public Vector3 dead_position;
     void Start()
     {
 
         ar = GameObject.FindWithTag("bow");
-
+ 
+        mon.SetActive(false);
         arrowScript = ar.GetComponent<ArrowShoot>();
 
         arrowStop = false;
-        isEnemyShot = false;
+       isEnemyShot = false;
 
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
@@ -48,9 +51,10 @@ public class Stick : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 
-        if (col.gameObject.tag != "Player")
+        if ((col.gameObject.tag != "ground") &&(col.gameObject.tag != "Player"))
         {
-
+            Debug.Log(col.gameObject.tag);
+            Debug.Log("kolizija ar zemi");
             arrow = GameObject.FindWithTag("arrowshot");
             if (arrow != null)
             {
@@ -73,8 +77,15 @@ public class Stick : MonoBehaviour
 
                     enemyAnim = ed.GetComponent<Animator>();
                     ed.GetComponent<BoxCollider>().enabled = false;
-                    enemyAnim.SetBool("isDead", true);
+                    dead_position = ed.transform.position;
+                    //enemyAnim.SetBool("isDead", true);
+                    enemyAnim.Play("Take 001");
+                    ed.tag = "enemyfinished";
                     Debug.Log("iesauts enemy");
+                    Debug.Log(dead_position);
+                    //ed.GetComponent<NavMeshAgent>().enabled = false;
+                    go = Instantiate(mon, dead_position, Quaternion.identity) as GameObject;
+                    go.SetActive(true);
                 }
             }
 
