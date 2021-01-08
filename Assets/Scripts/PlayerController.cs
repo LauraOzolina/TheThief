@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
     [SerializeField] public GameObject weapon1;
     [SerializeField] public GameObject weapon2;
-    [SerializeField] bool lockCursor = true;
+    public bool lockCursor = true;
     [SerializeField] int time;
     public bool showWeapon1;
     public bool showWeapon2;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private bool canpickup;
     Outline outlinescript;
     ArrowShoot arrowScript;
-    GameObject ar, dagger, en;
+    GameObject ar, dagger, en,dm;
     Animator enemyAnim;
     Enemies enemyScript;
     public bool stabbingEnemy;
@@ -39,11 +39,13 @@ public class PlayerController : MonoBehaviour
     {
         ar = GameObject.FindWithTag("bow");
         en = GameObject.FindWithTag("enemy");
+        dm = GameObject.FindWithTag("deadmenu");
         enemyScript = en.GetComponent<Enemies>();
         dagger = GameObject.FindWithTag("dagger");
         powerBar = GameObject.Find("Power").GetComponent<Slider>();
         powerBar.value = 0f;
         powerBar.maxValue = 20f;
+        dm.SetActive(false);
         arrowScript = ar.GetComponent<ArrowShoot>();
         controller = GetComponent<CharacterController>();
         if (lockCursor)
@@ -62,6 +64,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(playerHealth == 0f)
+        {
+            dm.SetActive(true);
+        }
         if (showWeapon1 == false)
         {
             weapon1.SetActive(false);

@@ -16,6 +16,8 @@ TagManager:
   - enemyfinished
   - ground
   - money
+  - dagger
+  - deadmenu
   layers:
   - Default
   - TransparentFX

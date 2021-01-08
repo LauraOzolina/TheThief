@@ -81,7 +81,9 @@ public class Enemies : MonoBehaviour
                     }
                     else
                     {
-
+                        playerScript.lockCursor = false;
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
                         Debug.Log("You died!");
                         StopCoroutine(Attack());
 
@@ -119,7 +121,7 @@ public class Enemies : MonoBehaviour
             // do stuff 
 
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
             attack_status = false;
         }
     }
