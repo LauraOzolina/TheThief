@@ -29,12 +29,17 @@ public class PlayerController : MonoBehaviour
     private bool canpickup;
     Outline outlinescript;
     ArrowShoot arrowScript;
-    GameObject ar,dagger;
+    GameObject ar, dagger, en;
     Animator enemyAnim;
+    Enemies enemyScript;
     public bool stabbingEnemy;
+    public float playerHealth;
+    GameObject[] objs;
     void Start()
     {
         ar = GameObject.FindWithTag("bow");
+        en = GameObject.FindWithTag("enemy");
+        enemyScript = en.GetComponent<Enemies>();
         dagger = GameObject.FindWithTag("dagger");
         powerBar = GameObject.Find("Power").GetComponent<Slider>();
         powerBar.value = 0f;
@@ -51,6 +56,8 @@ public class PlayerController : MonoBehaviour
         canpickup = false;
         stabbingEnemy = false;
         money = 0;
+        playerHealth = 100;
+        objs = GameObject.FindGameObjectsWithTag("enemy");
     }
 
     void Update()
@@ -123,13 +130,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 StartCoroutine(DaggerMove());
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
                 StopCoroutine(DaggerMove());
-      
-
             }
+
 
         }
         //picks up arrow if its close
@@ -164,7 +167,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(closestArrow);
                 arrowScript.arrows_available += 1;
                 arrowScript.counter.text = "Arrows:" + arrowScript.arrows_available;
-               
+
                 Debug.Log("destroy bulta");
                 canpickup = false;
             }
@@ -215,7 +218,11 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DaggerMove()
     {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("enemy");
+
+        dagger.transform.Translate(Vector3.left * 0.09f);
+
+        dagger.transform.Translate(Vector3.right * 0.09f);
+
         GameObject closestEnemy = null;
         float closestDistance = 9999;
         bool first = true;
@@ -238,18 +245,15 @@ public class PlayerController : MonoBehaviour
 
 
         }
-        Debug.Log(closestEnemy);
-        enemyAnim = closestEnemy.GetComponent<Animator>();
+
+
         stabbingEnemy = true;
-  
-        dagger.transform.Translate(Vector3.left * 0.09f);
-        yield return new WaitForSeconds(0.7f);
-        dagger.transform.Translate(Vector3.right * 0.09f);
+        yield return new WaitForSeconds(0f);
         stabbingEnemy = false;
     }
     void OnTriggerEnter(Collider col)
     {
-      
+
 
         if (col.tag == "money")
         {
@@ -261,11 +265,11 @@ public class PlayerController : MonoBehaviour
         {
             outlinescript = col.GetComponent<Outline>();
             Debug.Log(outlinescript.outlineColor);
-      
+
             outlinescript.outlineFillMaterial.SetColor("_OutlineColor", Color.green);
             Debug.Log("bulta");
             canpickup = true;
-           
+
         }
     }
 

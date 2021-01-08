@@ -10,23 +10,26 @@ public class Enemies : MonoBehaviour
     public int maxRange;
     public int minRange;
     public Animator anim;
-    GameObject go,engo,thePlayer;
+    GameObject go, engo, thePlayer;
     PlayerController playerScript;
     public int ecount, xpos, zpos;
+    public float health;
+    public bool attack_status;
     // Start is called before the first frame update
     void Start()
     {
 
         thePlayer = GameObject.FindWithTag("Player");
- 
+
         playerScript = thePlayer.GetComponent<PlayerController>();
         ecount = 0;
         anim = GetComponent<Animator>();
         anim.SetBool("isRuning", false);
         Debug.Log("setojam false");
         engo = GameObject.FindWithTag("enemy");
-    
-      
+        health = 100f;
+        attack_status = false;
+
 
     }
 
@@ -38,7 +41,7 @@ public class Enemies : MonoBehaviour
         //print("Distance to other: " + dist);
         if (transform.tag == "enemy")
         {
-            if ((dist < 10)&(dist < 10)& (dist >= 2))
+            if ((dist < 10) & (dist >= 2))
             {
 
                 //target = other.transform;
@@ -51,16 +54,39 @@ public class Enemies : MonoBehaviour
 
 
             }
-            else if(dist < 2)
+            else if (dist < 2)
             {
-               
+
                 if (playerScript.stabbingEnemy == true)
                 {
                     anim.Play("Rib Hit");
+                    Debug.Log(health);
+                    health -= 20f;
+                    if (health == 0f)
+                    {
+                        anim.Play("Take 001");
+                        transform.tag = "enemyfinished";
+                    }
+                    playerScript.stabbingEnemy = false;
                 }
                 else
                 {
- anim.Play("Punching");
+                    anim.Play("Punching");
+                    if (playerScript.playerHealth > 0f)
+                    {
+                        if (attack_status == false)
+                        {
+                            StartCoroutine(Attack());
+                        }
+                    }
+                    else
+                    {
+
+                        Debug.Log("You died!");
+                        StopCoroutine(Attack());
+
+                    }
+
                 }
                 enemy.velocity = Vector3.zero;
             }
@@ -70,8 +96,8 @@ public class Enemies : MonoBehaviour
 
                 // anim.SetBool("isRuning", false);
                 anim.Play("Breathing Idle");
-          
-              
+
+
                 enemy.velocity = Vector3.zero;
 
                 return;
@@ -82,7 +108,21 @@ public class Enemies : MonoBehaviour
 
     }
 
+    IEnumerator Attack()
+    {
+        if (attack_status == false)
+        {
+            attack_status = true;
+            Debug.Log("Attack!");
+            playerScript.playerHealth -= 20f;
+            Debug.Log(playerScript.playerHealth);
+            // do stuff 
 
+
+            yield return new WaitForSeconds(3f);
+            attack_status = false;
+        }
+    }
 
 
 }
