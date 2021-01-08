@@ -29,17 +29,19 @@ public class PlayerController : MonoBehaviour
     private bool canpickup;
     Outline outlinescript;
     ArrowShoot arrowScript;
-    GameObject ar, dagger, en,dm;
+    GameObject ar, dagger, en,dm,mes;
     Animator enemyAnim;
     Enemies enemyScript;
     public bool stabbingEnemy;
     public float playerHealth;
     GameObject[] objs;
+    Text message;
     void Start()
     {
         ar = GameObject.FindWithTag("bow");
         en = GameObject.FindWithTag("enemy");
         dm = GameObject.FindWithTag("deadmenu");
+        mes = GameObject.Find("Message");
         enemyScript = en.GetComponent<Enemies>();
         dagger = GameObject.FindWithTag("dagger");
         powerBar = GameObject.Find("Power").GetComponent<Slider>();
@@ -66,6 +68,14 @@ public class PlayerController : MonoBehaviour
     {
         if(playerHealth == 0f)
         {
+            dm.SetActive(true);
+        }
+        if (money == 200)
+        {
+            Debug.Log(mes);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            mes.GetComponent<TMPro.TextMeshProUGUI>().text = "Congrats!";
             dm.SetActive(true);
         }
         if (showWeapon1 == false)
