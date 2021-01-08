@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Stick : MonoBehaviour
 {
-    GameObject arrow, arrowhit, ar, ed,go;
+    GameObject arrow, arrowhit, ar, ed, go;
     public GameObject mon;
     Rigidbody rb, rbhit;
     Camera cam;
@@ -20,12 +20,12 @@ public class Stick : MonoBehaviour
     {
 
         ar = GameObject.FindWithTag("bow");
- 
+
         mon.SetActive(false);
         arrowScript = ar.GetComponent<ArrowShoot>();
 
         arrowStop = false;
-       isEnemyShot = false;
+        isEnemyShot = false;
 
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
@@ -34,12 +34,25 @@ public class Stick : MonoBehaviour
     {
         if (arrowStop == true)
         {
-
             arrowhit = GameObject.FindWithTag("arrowhit");
             rbhit = arrowhit.GetComponent<Rigidbody>();
-            rbhit.constraints = RigidbodyConstraints.FreezeAll;
+          
 
-            arrowhit.transform.rotation = Quaternion.Euler(hitLocx, hitLocy, hitLocz);
+            if (isEnemyShot == true)
+            {
+                Debug.Log("enemy rotation");
+                isEnemyShot = false;
+                arrowhit.transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
+            else
+            {
+               
+
+                arrowhit.transform.rotation = Quaternion.Euler(hitLocx, hitLocy, hitLocz);
+
+
+            }
+ rbhit.constraints = RigidbodyConstraints.FreezeAll;
             arrowStop = false;
             arrowScript.arrowExists = false;
             arrowhit.tag = "done";
@@ -51,7 +64,7 @@ public class Stick : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 
-        if ((col.gameObject.tag != "ground") &&(col.gameObject.tag != "Player"))
+        if ((col.gameObject.tag != "ground") && (col.gameObject.tag != "Player"))
         {
             Debug.Log(col.gameObject.tag);
             Debug.Log("kolizija ar zemi");
@@ -86,6 +99,7 @@ public class Stick : MonoBehaviour
                     //ed.GetComponent<NavMeshAgent>().enabled = false;
                     go = Instantiate(mon, dead_position, Quaternion.identity) as GameObject;
                     go.SetActive(true);
+                    arrowhit.transform.SetParent(ed.transform);
                 }
             }
 

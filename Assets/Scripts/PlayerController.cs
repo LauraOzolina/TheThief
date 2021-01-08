@@ -26,12 +26,20 @@ public class PlayerController : MonoBehaviour
     Vector2 currentMouseDelta = Vector2.zero;
     Vector2 currentMouseDeltaVelocity = Vector2.zero;
     public int money;
+    private bool canpickup;
+    Outline outlinescript;
+    ArrowShoot arrowScript;
+    GameObject ar,dagger;
+    Animator enemyAnim;
+    public bool stabbingEnemy;
     void Start()
     {
-
+        ar = GameObject.FindWithTag("bow");
+        dagger = GameObject.FindWithTag("dagger");
         powerBar = GameObject.Find("Power").GetComponent<Slider>();
         powerBar.value = 0f;
         powerBar.maxValue = 20f;
+        arrowScript = ar.GetComponent<ArrowShoot>();
         controller = GetComponent<CharacterController>();
         if (lockCursor)
         {
@@ -40,6 +48,8 @@ public class PlayerController : MonoBehaviour
         }
         showWeapon1 = false;
         showWeapon2 = false;
+        canpickup = false;
+        stabbingEnemy = false;
         money = 0;
     }
 
@@ -106,7 +116,60 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //if left mouse button pressed and knife out - stab
+        if (showWeapon2 == true)
+        {
 
+            if (Input.GetMouseButton(0))
+            {
+                StartCoroutine(DaggerMove());
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                StopCoroutine(DaggerMove());
+      
+
+            }
+
+        }
+        //picks up arrow if its close
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (canpickup == true)
+            {
+                GameObject[] objs = GameObject.FindGameObjectsWithTag("done");
+                GameObject closestArrow = null;
+                float closestDistance = 9999;
+                bool first = true;
+
+                foreach (var obj in objs)
+                {
+                    Debug.Log(obj);
+                    float distance = Vector3.Distance(obj.transform.position, transform.position);
+                    if (first)
+                    {
+                        closestDistance = distance;
+                        closestArrow = obj;
+                        first = false;
+                    }
+                    else if (distance < closestDistance)
+                    {
+                        closestArrow = obj;
+                        closestDistance = distance;
+                    }
+
+
+                }
+                Debug.Log(closestArrow);
+                Destroy(closestArrow);
+                arrowScript.arrows_available += 1;
+                arrowScript.counter.text = "Arrows:" + arrowScript.arrows_available;
+               
+                Debug.Log("destroy bulta");
+                canpickup = false;
+            }
+
+        }
         UpdateMouseLook();
         UpdateMovement();
     }
@@ -149,6 +212,41 @@ public class PlayerController : MonoBehaviour
 
         // do stuff
     }
+
+    IEnumerator DaggerMove()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("enemy");
+        GameObject closestEnemy = null;
+        float closestDistance = 9999;
+        bool first = true;
+
+        foreach (var obj in objs)
+        {
+            Debug.Log(obj);
+            float distance = Vector3.Distance(obj.transform.position, transform.position);
+            if (first)
+            {
+                closestDistance = distance;
+                closestEnemy = obj;
+                first = false;
+            }
+            else if (distance < closestDistance)
+            {
+                closestEnemy = obj;
+                closestDistance = distance;
+            }
+
+
+        }
+        Debug.Log(closestEnemy);
+        enemyAnim = closestEnemy.GetComponent<Animator>();
+        stabbingEnemy = true;
+  
+        dagger.transform.Translate(Vector3.left * 0.09f);
+        yield return new WaitForSeconds(0.7f);
+        dagger.transform.Translate(Vector3.right * 0.09f);
+        stabbingEnemy = false;
+    }
     void OnTriggerEnter(Collider col)
     {
       
@@ -158,6 +256,32 @@ public class PlayerController : MonoBehaviour
             Destroy(col.gameObject);
             Debug.Log("kolizija ar maisu");
             money += 100;
+        }
+        if (col.tag == "done")
+        {
+            outlinescript = col.GetComponent<Outline>();
+            Debug.Log(outlinescript.outlineColor);
+      
+            outlinescript.outlineFillMaterial.SetColor("_OutlineColor", Color.green);
+            Debug.Log("bulta");
+            canpickup = true;
+           
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+
+
+        if (col.tag == "done")
+        {
+            outlinescript = col.GetComponent<Outline>();
+            Debug.Log(outlinescript.outlineColor);
+
+            outlinescript.outlineFillMaterial.SetColor("_OutlineColor", Color.red);
+            Debug.Log("bulta");
+            canpickup = false;
+
         }
     }
 

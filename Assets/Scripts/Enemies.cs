@@ -10,11 +10,16 @@ public class Enemies : MonoBehaviour
     public int maxRange;
     public int minRange;
     public Animator anim;
-    GameObject go,engo;
+    GameObject go,engo,thePlayer;
+    PlayerController playerScript;
     public int ecount, xpos, zpos;
     // Start is called before the first frame update
     void Start()
     {
+
+        thePlayer = GameObject.FindWithTag("Player");
+ 
+        playerScript = thePlayer.GetComponent<PlayerController>();
         ecount = 0;
         anim = GetComponent<Animator>();
         anim.SetBool("isRuning", false);
@@ -33,7 +38,7 @@ public class Enemies : MonoBehaviour
         //print("Distance to other: " + dist);
         if (transform.tag == "enemy")
         {
-            if (dist < 10)
+            if ((dist < 10)&(dist < 10)& (dist >= 2))
             {
 
                 //target = other.transform;
@@ -41,8 +46,23 @@ public class Enemies : MonoBehaviour
                 //anim.SetBool("isRuning", true);
                 anim.Play("Treadmill Running");
                 enemy.SetDestination(player.position);
-              
-          
+
+
+
+
+            }
+            else if(dist < 2)
+            {
+               
+                if (playerScript.stabbingEnemy == true)
+                {
+                    anim.Play("Rib Hit");
+                }
+                else
+                {
+ anim.Play("Punching");
+                }
+                enemy.velocity = Vector3.zero;
             }
             else
             {

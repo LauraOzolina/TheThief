@@ -13,7 +13,7 @@ public class ArrowShoot : MonoBehaviour
     Camera cam;
     public bool arrowExists;
     public int arrows_available;
-    Text counter;
+    public Text counter;
     Text money_count;
     // Start is called before the first frame update
     void Start()
@@ -36,6 +36,7 @@ public class ArrowShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         money_count.text = "Money:" + playerScript.money;
         if (playerScript.showWeapon1 == true)
         {
@@ -51,7 +52,7 @@ public class ArrowShoot : MonoBehaviour
                 go.transform.SetParent(arrow_spawner.transform);
                 arrowExists = true;
          
-                --arrows_available;
+              
                 counter.text = "Arrows:" + arrows_available;
             }
             //go.transform.rotation = Quaternion.AngleAxis(bow.transform.position.y, Vector3.up);
@@ -81,7 +82,8 @@ public class ArrowShoot : MonoBehaviour
             playerScript.shootArrow = false;
             go.transform.SetParent(null);
             playerScript.powerBar.value = 0f;
-
+            arrows_available -= 1;
+            counter.text = "Arrows:" + arrows_available;
             //arrowExists = false;
         }
 
