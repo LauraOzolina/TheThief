@@ -36,23 +36,24 @@ public class Stick : MonoBehaviour
         {
             arrowhit = GameObject.FindWithTag("arrowhit");
             rbhit = arrowhit.GetComponent<Rigidbody>();
-          
+
 
             if (isEnemyShot == true)
             {
                 Debug.Log("enemy rotation");
                 isEnemyShot = false;
                 arrowhit.transform.rotation = Quaternion.Euler(0, 90, 0);
+                rbhit.useGravity = true;
             }
             else
             {
-               
+
 
                 arrowhit.transform.rotation = Quaternion.Euler(hitLocx, hitLocy, hitLocz);
-
+ rbhit.constraints = RigidbodyConstraints.FreezeAll;
 
             }
- rbhit.constraints = RigidbodyConstraints.FreezeAll;
+           
             arrowStop = false;
             arrowScript.arrowExists = false;
             arrowhit.tag = "done";
@@ -64,10 +65,11 @@ public class Stick : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 
-        if ((col.gameObject.tag != "ground") && (col.gameObject.tag != "Player"))
+        if (col.gameObject.tag != "Player")
         {
             Debug.Log(col.gameObject.tag);
-            Debug.Log("kolizija ar zemi");
+            Debug.Log(col.gameObject);
+
             arrow = GameObject.FindWithTag("arrowshot");
             if (arrow != null)
             {

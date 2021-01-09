@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         {
             dm.SetActive(true);
         }
-        if (money == 200)
+        if (money == 500)
         {
             Debug.Log(mes);
             Cursor.lockState = CursorLockMode.None;
@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(closestArrow);
                 Destroy(closestArrow);
                 arrowScript.arrows_available += 1;
-                arrowScript.counter.text = "Arrows:" + arrowScript.arrows_available;
+                arrowScript.theCounter.GetComponent<TMPro.TextMeshProUGUI>().text = "Arrows:" + arrowScript.arrows_available;
 
                 Debug.Log("destroy bulta");
                 canpickup = false;

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ArrowShoot : MonoBehaviour
 {
-    GameObject thePlayer,theCounter,theMoney;
+    public GameObject thePlayer,theCounter,theMoney;
     public GameObject arrow;
     PlayerController playerScript;
     public Transform arrow_spawner;
@@ -27,17 +27,17 @@ public class ArrowShoot : MonoBehaviour
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         arrowExists = false;
         arrows_available = 5;
-        counter = theCounter.GetComponent<Text>();
-        counter.text = "Arrows:"+arrows_available;
-        money_count = theMoney.GetComponent<Text>();
-        money_count.text = "Money:" + 0;
+     
+        theCounter.GetComponent<TMPro.TextMeshProUGUI>().text = "Arrows:"+arrows_available;
+      
+        theMoney.GetComponent<TMPro.TextMeshProUGUI>().text = "Money:" + 0;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        money_count.text = "Money:" + playerScript.money;
+        theMoney.GetComponent<TMPro.TextMeshProUGUI>().text = "Money:" + playerScript.money;
         if (playerScript.showWeapon1 == true)
         {
             if ((arrowExists == false) && (arrows_available > 0))
@@ -51,9 +51,9 @@ public class ArrowShoot : MonoBehaviour
                 go.SetActive(true);
                 go.transform.SetParent(arrow_spawner.transform);
                 arrowExists = true;
-         
-              
-                counter.text = "Arrows:" + arrows_available;
+
+
+                theCounter.GetComponent<TMPro.TextMeshProUGUI>().text = "Arrows:" + arrows_available;
             }
             //go.transform.rotation = Quaternion.AngleAxis(bow.transform.position.y, Vector3.up);
             if (playerScript.shootArrow == false)
@@ -83,7 +83,7 @@ public class ArrowShoot : MonoBehaviour
             go.transform.SetParent(null);
             playerScript.powerBar.value = 0f;
             arrows_available -= 1;
-            counter.text = "Arrows:" + arrows_available;
+            theCounter.GetComponent<TMPro.TextMeshProUGUI>().text = "Arrows:" + arrows_available;
             //arrowExists = false;
         }
 
