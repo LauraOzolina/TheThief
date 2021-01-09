@@ -45,7 +45,7 @@ public class ArrowShoot : MonoBehaviour
 
                 go = Instantiate(arrow, arrow_spawner.position, Quaternion.identity) as GameObject;
                 Rigidbody rb = go.GetComponent<Rigidbody>();
-
+                go.GetComponent<BoxCollider>().enabled = false;
                 rb.useGravity = false;
 
                 go.SetActive(true);
@@ -77,6 +77,7 @@ public class ArrowShoot : MonoBehaviour
             Rigidbody rb = go.GetComponent<Rigidbody>();
             rb.velocity = cam.transform.forward * playerScript.powerBar.value;
             rb.useGravity = true;
+            go.GetComponent<BoxCollider>().enabled = true;
             //rb.isKinematic = false;
             go.tag = "arrowshot";
             playerScript.shootArrow = false;

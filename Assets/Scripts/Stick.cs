@@ -65,7 +65,7 @@ public class Stick : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
 
-        if (col.gameObject.tag != "Player")
+        if ((col.gameObject.tag != "Player")&& (col.gameObject.tag != "arrow"))
         {
             Debug.Log(col.gameObject.tag);
             Debug.Log(col.gameObject);
