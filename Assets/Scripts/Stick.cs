@@ -50,10 +50,10 @@ public class Stick : MonoBehaviour
 
 
                 arrowhit.transform.rotation = Quaternion.Euler(hitLocx, hitLocy, hitLocz);
- rbhit.constraints = RigidbodyConstraints.FreezeAll;
+                rbhit.constraints = RigidbodyConstraints.FreezeAll;
 
             }
-           
+
             arrowStop = false;
             arrowScript.arrowExists = false;
             arrowhit.tag = "done";

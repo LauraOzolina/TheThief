@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private bool canpickup;
     Outline outlinescript;
     ArrowShoot arrowScript;
-    GameObject ar, dagger, en,dm,mes;
+    GameObject ar, dagger, en, dm, mes;
     Animator enemyAnim;
     Enemies enemyScript;
     public bool stabbingEnemy;
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(playerHealth == 0f)
+        if (playerHealth == 0f)
         {
             dm.SetActive(true);
         }

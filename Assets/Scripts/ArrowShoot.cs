@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ArrowShoot : MonoBehaviour
 {
-    public GameObject thePlayer,theCounter,theMoney;
+    public GameObject thePlayer, theCounter, theMoney;
     public GameObject arrow;
     PlayerController playerScript;
     public Transform arrow_spawner;
@@ -27,9 +27,9 @@ public class ArrowShoot : MonoBehaviour
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         arrowExists = false;
         arrows_available = 5;
-     
-        theCounter.GetComponent<TMPro.TextMeshProUGUI>().text = "Arrows:"+arrows_available;
-      
+
+        theCounter.GetComponent<TMPro.TextMeshProUGUI>().text = "Arrows:" + arrows_available;
+
         theMoney.GetComponent<TMPro.TextMeshProUGUI>().text = "Money:" + 0;
     }
 
@@ -47,7 +47,7 @@ public class ArrowShoot : MonoBehaviour
                 Rigidbody rb = go.GetComponent<Rigidbody>();
 
                 rb.useGravity = false;
-     
+
                 go.SetActive(true);
                 go.transform.SetParent(arrow_spawner.transform);
                 arrowExists = true;
@@ -59,7 +59,7 @@ public class ArrowShoot : MonoBehaviour
             if (playerScript.shootArrow == false)
             {
 
-             
+
                 go.transform.LookAt(cam.transform);
             }
 
@@ -72,7 +72,7 @@ public class ArrowShoot : MonoBehaviour
         if (playerScript.shootArrow == true)
         {
 
-           
+
 
             Rigidbody rb = go.GetComponent<Rigidbody>();
             rb.velocity = cam.transform.forward * playerScript.powerBar.value;
