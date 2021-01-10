@@ -3429,11 +3429,17 @@ MonoBehaviour:
   maxRange: 2
   minRange: 1
   anim: {fileID: 0}
+  go: {fileID: 0}
+  engo: {fileID: 0}
+  thePlayer: {fileID: 0}
+  loot: {fileID: 0}
   ecount: 0
   xpos: 0
   zpos: 0
   health: 0
   attack_status: 0
+  dead_position: {x: 0, y: 0, z: 0}
+  mon: {fileID: 1571796574}
 --- !u!195 &414235575
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3730,11 +3736,17 @@ MonoBehaviour:
   maxRange: 2
   minRange: 1
   anim: {fileID: 0}
+  go: {fileID: 0}
+  engo: {fileID: 0}
+  thePlayer: {fileID: 0}
+  loot: {fileID: 0}
   ecount: 0
   xpos: 0
   zpos: 0
   health: 0
   attack_status: 0
+  dead_position: {x: 0, y: 0, z: 0}
+  mon: {fileID: 1571796574}
 --- !u!65 &478206519
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4396,11 +4408,17 @@ MonoBehaviour:
   maxRange: 2
   minRange: 1
   anim: {fileID: 0}
+  go: {fileID: 0}
+  engo: {fileID: 0}
+  thePlayer: {fileID: 0}
+  loot: {fileID: 0}
   ecount: 0
   xpos: 0
   zpos: 0
   health: 0
   attack_status: 0
+  dead_position: {x: 0, y: 0, z: 0}
+  mon: {fileID: 1571796574}
 --- !u!195 &583500878
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5459,11 +5477,17 @@ MonoBehaviour:
   maxRange: 2
   minRange: 1
   anim: {fileID: 0}
+  go: {fileID: 0}
+  engo: {fileID: 0}
+  thePlayer: {fileID: 0}
+  loot: {fileID: 0}
   ecount: 0
   xpos: 0
   zpos: 0
   health: 0
   attack_status: 0
+  dead_position: {x: 0, y: 0, z: 0}
+  mon: {fileID: 1571796574}
 --- !u!195 &774009109
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7020,11 +7044,17 @@ MonoBehaviour:
   maxRange: 2
   minRange: 1
   anim: {fileID: 0}
+  go: {fileID: 0}
+  engo: {fileID: 0}
+  thePlayer: {fileID: 0}
+  loot: {fileID: 0}
   ecount: 0
   xpos: 0
   zpos: 0
   health: 0
   attack_status: 0
+  dead_position: {x: 0, y: 0, z: 0}
+  mon: {fileID: 1571796574}
 --- !u!195 &1110388608
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7819,11 +7849,17 @@ MonoBehaviour:
   maxRange: 2
   minRange: 1
   anim: {fileID: 0}
+  go: {fileID: 0}
+  engo: {fileID: 0}
+  thePlayer: {fileID: 0}
+  loot: {fileID: 0}
   ecount: 0
   xpos: 0
   zpos: 0
   health: 0
   attack_status: 0
+  dead_position: {x: 0, y: 0, z: 0}
+  mon: {fileID: 1571796574}
 --- !u!195 &1283597460
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9277,7 +9313,7 @@ MonoBehaviour:
   m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -9602,11 +9638,17 @@ MonoBehaviour:
   maxRange: 2
   minRange: 1
   anim: {fileID: 0}
+  go: {fileID: 0}
+  engo: {fileID: 0}
+  thePlayer: {fileID: 0}
+  loot: {fileID: 0}
   ecount: 0
   xpos: 0
   zpos: 0
   health: 0
   attack_status: 0
+  dead_position: {x: 0, y: 0, z: 0}
+  mon: {fileID: 1571796574}
 --- !u!195 &1538426796
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12249,15 +12291,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 2f5e3d3462b9fba43a427722efd79127, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.738132
+      value: 4.37298
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 2f5e3d3462b9fba43a427722efd79127, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.738132
+      value: 4.37298
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 2f5e3d3462b9fba43a427722efd79127, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.738132
+      value: 4.37298
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f5e3d3462b9fba43a427722efd79127, type: 3}

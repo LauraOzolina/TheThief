@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         }
         if (money == 500)
         {
-            Debug.Log(mes);
+       
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             mes.GetComponent<TMPro.TextMeshProUGUI>().text = "Congrats!";
@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
                 foreach (var obj in objs)
                 {
-                    Debug.Log(obj);
+                  
                     float distance = Vector3.Distance(obj.transform.position, transform.position);
                     if (first)
                     {
@@ -179,12 +179,11 @@ public class PlayerController : MonoBehaviour
 
 
                 }
-                Debug.Log(closestArrow);
+            
                 Destroy(closestArrow);
                 arrowScript.arrows_available += 1;
                 arrowScript.theCounter.GetComponent<TMPro.TextMeshProUGUI>().text = "Arrows:" + arrowScript.arrows_available;
 
-                Debug.Log("destroy bulta");
                 canpickup = false;
             }
 
@@ -245,7 +244,7 @@ public class PlayerController : MonoBehaviour
 
         foreach (var obj in objs)
         {
-            Debug.Log(obj);
+        
             float distance = Vector3.Distance(obj.transform.position, transform.position);
             if (first)
             {
@@ -274,16 +273,16 @@ public class PlayerController : MonoBehaviour
         if (col.tag == "money")
         {
             Destroy(col.gameObject);
-            Debug.Log("kolizija ar maisu");
+            Debug.Log("pikis");
             money += 100;
         }
         if (col.tag == "done")
         {
             outlinescript = col.GetComponent<Outline>();
-            Debug.Log(outlinescript.outlineColor);
+
 
             outlinescript.outlineFillMaterial.SetColor("_OutlineColor", Color.green);
-            Debug.Log("bulta");
+   
             canpickup = true;
 
         }
@@ -296,10 +295,10 @@ public class PlayerController : MonoBehaviour
         if (col.tag == "done")
         {
             outlinescript = col.GetComponent<Outline>();
-            Debug.Log(outlinescript.outlineColor);
+          
 
             outlinescript.outlineFillMaterial.SetColor("_OutlineColor", Color.red);
-            Debug.Log("bulta");
+         
             canpickup = false;
 
         }

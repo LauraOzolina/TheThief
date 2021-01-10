@@ -10,11 +10,13 @@ public class Enemies : MonoBehaviour
     public int maxRange;
     public int minRange;
     public Animator anim;
-    GameObject go, engo, thePlayer;
+    public GameObject go, engo, thePlayer,loot, theMoney;
     PlayerController playerScript;
     public int ecount, xpos, zpos;
     public float health;
     public bool attack_status;
+    public Vector3 dead_position;
+    public GameObject mon;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,14 +31,14 @@ public class Enemies : MonoBehaviour
         engo = GameObject.FindWithTag("enemy");
         health = 100f;
         attack_status = false;
-
-
+        theMoney = GameObject.Find("Money");
+        Debug.Log(mon);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        theMoney.GetComponent<TMPro.TextMeshProUGUI>().text = "Money:" + playerScript.money;
         float dist = Vector3.Distance(transform.position, player.position);
         //print("Distance to other: " + dist);
         if (transform.tag == "enemy")
@@ -66,7 +68,14 @@ public class Enemies : MonoBehaviour
                     {
                         anim.Play("Take 001");
                         transform.tag = "enemyfinished";
+                        dead_position = transform.position;
+                     
+                        loot = Instantiate(mon, dead_position, Quaternion.identity) as GameObject;
+                        loot.SetActive(true);
+
+                        Debug.Log(loot);
                     }
+                    
                     playerScript.stabbingEnemy = false;
                 }
                 else
